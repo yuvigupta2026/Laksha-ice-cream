@@ -1,27 +1,37 @@
-require("dotenv").config(); // Essential for reading MONGO_URI
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
 const app = express();
 
-// Middleware
+/* ---------- Middleware ---------- */
 app.use(cors());
 app.use(express.json());
 
-// MongoDB connection
-// process.env.MONGO_URI must be set in Render
+/* ---------- MongoDB Connection ---------- */
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
   .then(() => console.log("✅ MongoDB connected successfully"))
-  .catch((err) => console.error("❌ MongoDB connection error:", err));
+  .catch((err) => {
+    console.error("❌ MongoDB connection error:", err);
+    process.exit(1);
+  });
 
-// Routes
-// Verify this file exists at ./routes/auth.js
-app.use("/", require("./routes/auth"));
+/* ---------- Routes ---------- */
+app.use("/api", require("./routes/auth"));
 
-// Port Configuration
-const PORT = process.env.PORT || 3000;
+/* ---------- Health Check (VERY IMPORTANT) ---------- */
+app.get("/", (req, res) => {
+  res.send("Laksha Ice Cream Backend Running 🚀");
+});
+
+/* ---------- Port ---------- */
+const PORT = process.env.PORT || 10000;
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
