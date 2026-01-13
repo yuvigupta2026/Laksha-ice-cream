@@ -1,21 +1,28 @@
-const express = require("express");
-const bcrypt = require("bcryptjs");
-const User = require("../models/User");
-
-const router = express.Router();
-
-router.post("/signup", async (req, res) => {
-  const hashed = await bcrypt.hash(req.body.password, 10);
-  await User.create({ ...req.body, password: hashed });
-  res.json({ message: "Signup successful" });
-});
+const jwt = require("jsonwebtoken");
 
 router.post("/login", async (req, res) => {
-  const user = await User.findOne({ email: req.body.email });
-  if (!user) return res.json({ message: "User not found" });
+  const { email, password } = req.body;
 
-  const match = await bcrypt.compare(req.body.password, user.password);
-  res.json({ message: match ? "Login success" : "Wrong password" });
+  const user = await User.findOne({ email });
+  if (!user) {
+    return res.status(400).json({ message: "User not found" });
+  }
+
+  if (password !== user.password) {
+    return res.status(400).json({ message: "Wrong password" });
+  }
+
+  // 🔐 Create token
+  const token = jwt.sign(
+    { id: user._id },
+    process.env.JWT_SECRET || "laksha_secret",
+    { expiresIn: "1d" }
+  );
+
+  res.json({
+    message: "Login success",
+    token
+  });
 });
 
 module.exports = router;
