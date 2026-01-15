@@ -48,4 +48,16 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// Route to delete a user by email
+router.delete("/delete-user/:email", async (req, res) => {
+    try {
+        const { email } = req.params;
+        const deletedUser = await User.findOneAndDelete({ email });
+        if (!deletedUser) return res.status(404).json({ message: "User not found" });
+        res.json({ message: "Account deleted successfully" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 module.exports = router; // This MUST be here
