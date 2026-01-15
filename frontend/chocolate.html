@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Laksha Ice Cream Kada - Chocolate Heaven</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #2b1e16;
+  color: #fff;
+}
+
+header {
+  background: #4b2f22;
+  padding: 20px;
+  text-align: center;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  margin-right: 320px;
+}
+
+.card {
+  background: #3a261c;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 12px;
+}
+
+.card-body h3 {
+  margin: 0 0 8px;
+}
+
+.card-body button {
+  background: #c7a76c;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #2b1e16;
+}
+
+#cart {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  background: #24170f;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.cart-item {
+  border-bottom: 1px solid #555;
+  padding: 10px 0;
+}
+
+.checkout {
+  margin-top: 15px;
+  background: #c7a76c;
+  color: #2b1e16;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  width: 100%;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Popup */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.popup-box {
+  background: #3a261c;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  width: 320px;
+
+  <p id="popupMessage"></p>
+
+}
+
+.popup-box h2 {
+  color: #c7a76c;
+}
+
+.popup-box button {
+  margin-top: 15px;
+  background: #c7a76c;
+  color: #2b1e16;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Laksha Ice Cream Kada</h1>
+  <p>Only Chocolate Flavoured Products</p>
+</header>
+
+<main class="products" id="productGrid"></main>
+
+<aside id="cart">
+  <h2>Your Cart</h2>
+  <div id="cartItems"></div>
+  <h3 id="cartTotal">Total: ₹0</h3>
+  <button class="checkout" onclick="checkout()">Checkout</button>
+</aside>
+
+<!-- Popup -->
+<div id="popupOverlay" class="popup-overlay">
+  <div class="popup-box">
+    <h2>Thank You!</h2>
+    <p id="popupMessage"></p>
+    <button onclick="closePopup()">OK</button>
+  </div>
+</div>
+
+<script>
+const PRODUCTS = [
+  {name:"Chocolate Ice Cream", price:149, img:"https://images.pexels.com/photos/2846337/pexels-photo-2846337.jpeg"},
+  {name:"Dark Chocolate Ice Cream", price:169, img:"https://images.pexels.com/photos/12051654/pexels-photo-12051654.jpeg"},
+  {name:"Belgium Chocolate", price:199, img:"https://images.pexels.com/photos/2067396/pexels-photo-2067396.jpeg"},
+  {name:"Chocolate Milkshake", price:129, img:"https://images.pexels.com/photos/15529723/pexels-photo-15529723.jpeg"},
+  {name:"Chocolate Waffle", price:159, img:"https://images.pexels.com/photos/34964948/pexels-photo-34964948.jpeg"},
+  {name:"Chocolate Brownie", price:159, img:"https://images.pexels.com/photos/887853/pexels-photo-887853.jpeg"},
+  {name:"Chocolate Cone", price:119, img:"https://images.pexels.com/photos/13701347/pexels-photo-13701347.jpeg"},
+  {name:"Chocolate Bar", price:189, img:"https://images.pexels.com/photos/7538069/pexels-photo-7538069.jpeg"},
+  {name:"Chocolate Cake", price:249, img:"https://images.pexels.com/photos/4109996/pexels-photo-4109996.jpeg"},
+  {name:"Chocolate Truffle Cake", price:299, img:"https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg"},
+  {name:"Chocolate Lava Cake", price:279, img:"https://images.pexels.com/photos/33813614/pexels-photo-33813614.jpeg"},
+  {name:"Choco Chips", price:99, img:"https://images.pexels.com/photos/13921501/pexels-photo-13921501.jpeg"},
+  {name:"Choco Pie", price:109, img:"https://images.pexels.com/photos/3026807/pexels-photo-3026807.jpeg"},
+  {name:"Chocolate Mousse", price:189, img:"https://images.pexels.com/photos/3026806/pexels-photo-3026806.jpeg"},
+  {name:"Extra Dark Chocolate", price:199, img:"https://images.pexels.com/photos/918327/pexels-photo-918327.jpeg"}
+];
+
+const cart = [];
+
+function renderProducts() {
+  const grid = document.getElementById("productGrid");
+  PRODUCTS.forEach((p, i) => {
+    grid.innerHTML += `
+      <div class="card">
+        <img src="${p.img}">
+        <div class="card-body">
+          <h3>${p.name}</h3>
+          <p>₹${p.price}</p>
+          <button onclick="addToCart(${i})">Add to Cart</button>
+        </div>
+      </div>`;
+  });
+}
+
+function addToCart(i) {
+  cart.push(PRODUCTS[i]);
+  updateCart();
+}
+
+function updateCart() {
+  const cartItems = document.getElementById("cartItems");
+  cartItems.innerHTML = "";
+  let total = 0;
+
+  cart.forEach((item, i) => {
+    total += item.price;
+    cartItems.innerHTML += `
+      <div class="cart-item">
+        <span>${item.name}</span>
+        <span>₹${item.price}</span>
+        <button onclick="removeFromCart(${i})">Remove</button>
+      </div>`;
+  });
+
+  document.getElementById("cartTotal").innerText = "Total: ₹" + total;
+}
+
+function removeFromCart(i) {
+  cart.splice(i,1);
+  updateCart();
+}
+
+function checkout() {
+  if (cart.length === 0) {
+    showPopup("Your cart is empty!");
+    return;
+  }
+  let total = cart.reduce((s,i)=>s+i.price,0);
+  showPopup(`Thank you for shopping at Laksha Ice Kada!<br><br><strong>Total: ₹${total}</strong>`);
+  cart.length = 0;
+  updateCart();
+}
+
+function showPopup(msg) {
+  document.getElementById("popupMessage").innerHTML = msg;
+  document.getElementById("popupOverlay").style.display = "flex";
+}
+
+function closePopup() {
+  document.getElementById("popupOverlay").style.display = "none";
+}
+
+renderProducts();
+</script>
+
+</body>
+</html>
