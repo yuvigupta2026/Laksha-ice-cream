@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Laksha Ice Cream Kada - Vanilla Dream</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 0; background: #fff9e6; color: #5d4037; }
+header { background: #fdf5e6; padding: 20px; text-align: center; border-bottom: 2px solid #e0d5c1; }
+.products { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; padding: 20px; margin-right: 320px; }
+.card { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid #eee; }
+.card img { width: 100%; height: 160px; object-fit: cover; }
+.card-body { padding: 12px; }
+.card-body button { background: #f3e5ab; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; color: #5d4037; }
+#cart { position: fixed; right: 0; top: 0; width: 300px; height: 100%; background: #fff; border-left: 2px solid #eee; padding: 20px; overflow-y: auto; }
+.checkout { margin-top: 15px; background: #f3e5ab; color: #5d4037; padding: 10px; border: none; border-radius: 6px; width: 100%; font-weight: bold; cursor: pointer; }
+.popup-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 9999; }
+.popup-box { background: #fff; padding: 25px; border-radius: 12px; text-align: center; width: 320px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Laksha Ice Cream Kada</h1>
+  <p>Only Vanilla Flavoured Products</p>
+  <a href="index.html" style="text-decoration:none; color:#5d4037;">⬅ Back to Home</a>
+</header>
+<main class="products" id="productGrid"></main>
+<aside id="cart">
+  <h2>Your Cart</h2>
+  <div id="cartItems"></div>
+  <h3 id="cartTotal">Total: ₹0</h3>
+  <button class="checkout" onclick="checkout()">Checkout</button>
+</aside>
+<div id="popupOverlay" class="popup-overlay"><div class="popup-box"><h2>Thank You!</h2><p id="popupMessage"></p><button onclick="closePopup()">OK</button></div></div>
+<script>
+const PRODUCTS = [
+  {name:"Classic Vanilla", price:129, img:"https://images.pexels.com/photos/1362534/pexels-photo-1362534.jpeg"},
+  {name:"Vanilla Bean Pod", price:179, img:"https://images.pexels.com/photos/414262/pexels-photo-414262.jpeg"},
+  {name:"French Vanilla", price:159, img:"https://images.pexels.com/photos/5061245/pexels-photo-5061245.jpeg"},
+  {name:"Vanilla Milkshake", price:119, img:"https://images.pexels.com/photos/103566/pexels-photo-103566.jpeg"}
+];
+const cart = [];
+function renderProducts() {
+  const grid = document.getElementById("productGrid");
+  PRODUCTS.forEach((p, i) => {
+    grid.innerHTML += `<div class="card"><img src="${p.img}"><div class="card-body"><h3>${p.name}</h3><p>₹${p.price}</p><button onclick="addToCart(${i})">Add to Cart</button></div></div>`;
+  });
+}
+function addToCart(i) { cart.push(PRODUCTS[i]); updateCart(); }
+function updateCart() {
+  const cartItems = document.getElementById("cartItems"); cartItems.innerHTML = ""; let total = 0;
+  cart.forEach((item, i) => { total += item.price; cartItems.innerHTML += `<div class="cart-item"><span>${item.name}</span> <span>₹${item.price}</span></div>`; });
+  document.getElementById("cartTotal").innerText = "Total: ₹" + total;
+}
+function checkout() { if (cart.length === 0) { showPopup("Your cart is empty!"); return; } showPopup("Thank you for your Vanilla order!"); cart.length = 0; updateCart(); }
+function showPopup(msg) { document.getElementById("popupMessage").innerHTML = msg; document.getElementById("popupOverlay").style.display = "flex"; }
+function closePopup() { document.getElementById("popupOverlay").style.display = "none"; }
+renderProducts();
+</script>
+</body>
+</html>
