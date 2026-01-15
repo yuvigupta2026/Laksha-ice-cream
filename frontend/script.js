@@ -46,6 +46,24 @@ async function login() {
     } else {
       alert("Login failed: " + (data.message || "Invalid credentials"));
     }
+
+    const deleteBtn = document.getElementById('deleteBtn');
+
+deleteBtn.addEventListener('click', async () => {
+    const email = prompt("Please enter your email to confirm deletion:");
+    if (!email) return;
+
+    const response = await fetch(`https://laksha-ice-cream-1.onrender.com/api/delete-user/${email}`, {
+        method: 'DELETE'
+    });
+
+    const data = await response.json();
+    alert(data.message);
+    
+    // Refresh the page or redirect
+    window.location.reload();
+});
+    
   } catch (err) {
     console.error("Login failed:", err);
     alert("Could not connect to the server.");
