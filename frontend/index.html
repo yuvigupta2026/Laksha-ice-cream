@@ -3,6 +3,13 @@
 <head>
   <title>Laksha Ice Cream</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Adding a style to make sure the links look like cards */
+    .menu a {
+      text-decoration: none;
+      color: inherit;
+    }
+  </style>
 </head>
 <body>
 
@@ -10,15 +17,20 @@
 <p>Welcome to the sweetest ice cream shop!</p>
 
 <div class="menu">
-  <div class="card">Chocolate</div>
+  <a href="chocolate.html">
+    <div class="card">Chocolate</div>
+  </a>
+  
   <div class="card">Vanilla</div>
   <div class="card">Strawberry</div>
   <div class="card">Mango</div>
 </div>
 
-  <button id="deleteBtn" style="background-color: red; color: white;">Delete My Account</button>
+<button id="deleteBtn" style="background-color: red; color: white;">Delete My Account</button>
+<br><br>
 <a href="login.html">Login</a> |
 <a href="signup.html">Signup</a>
 
+<script src="script.js"></script>
 </body>
 </html>
