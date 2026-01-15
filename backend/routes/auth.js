@@ -1,4 +1,5 @@
 const express = require("express");
+<<<<<<< HEAD
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
@@ -14,28 +15,37 @@ router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ message: "User not found" });
-    }
+=======
+const router = express.Router();
+const User = require("../models/User"); // Ensure you have a User model in models/User.js
 
-    if (user.password !== password) {
-      return res.status(400).json({ message: "Wrong password" });
-    }
-
-    const token = jwt.sign(
-      { id: user._id },
-      process.env.JWT_SECRET || "laksha_secret",
-      { expiresIn: "1d" }
-    );
-
-    res.json({
-      message: "Login success",
-      token
-    });
+// 🍦 Signup Route
+router.post("/signup", async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    const newUser = new User({ name, email, password });
+    await newUser.save();
+    res.status(201).json({ message: "User created successfully!" });
   } catch (err) {
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ error: err.message });
   }
 });
 
-module.exports = router;
+// 🍦 Login Route
+router.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+>>>>>>> 4c625a154febd4e759166517e40fb718b04ff8f2
+    const user = await User.findOne({ email });
+    
+    if (!user || user.password !== password) {
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    res.json({ message: "Login successful!", user: { name: user.name, email: user.email } });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+module.exports = router; // This MUST be here
