@@ -52,7 +52,16 @@
 
 <div class="location-container">
     <span id="location-text">📍 Delivery Location: Not Set</span><br>
-    <button class="loc-btn" onclick="getLocation()">Detect My Location</button>
+    
+    <div style="margin: 10px 0;">
+        <input type="text" id="manual-location" placeholder="Enter your address here..." 
+               style="padding: 8px; border-radius: 5px; border: 1px solid #ccc; width: 200px;">
+        <button class="loc-btn" onclick="saveManualLocation()" style="padding: 8px 15px;">Save</button>
+    </div>
+
+    <p style="margin: 5px 0; font-size: 0.8em; color: #666;">-- OR --</p>
+    
+    <button class="loc-btn" onclick="getLocation()">Detect Automatically</button>
 </div>
 
 <div class="menu">
