@@ -1,8 +1,15 @@
 // ✅ Your live Render URL
 const API = "https://laksha-ice-cream-1.onrender.com/api";
 
-// --- 1. SIGNUP LOGIC ---
+// --- 1. SIGNUP LOGIC WITH SPINNER ---
 async function signup() {
+  const btn = document.getElementById('signupBtn');
+  const spinner = document.getElementById('spinner');
+  
+  // Show loading state
+  if (btn) btn.disabled = true;
+  if (spinner) spinner.classList.add('loading');
+
   try {
     const res = await fetch(API + "/signup", {
       method: "POST",
@@ -17,11 +24,22 @@ async function signup() {
     alert(res.ok ? "Success: " + data.message : "Error: " + (data.error || data.message));
   } catch (err) {
     alert("Could not connect to server.");
+  } finally {
+    // Hide loading state
+    if (btn) btn.disabled = false;
+    if (spinner) spinner.classList.remove('loading');
   }
 }
 
-// --- 2. LOGIN LOGIC ---
+// --- 2. LOGIN LOGIC WITH SPINNER ---
 async function login() {
+  const btn = document.getElementById('loginBtn');
+  const spinner = document.getElementById('spinner');
+  
+  // Show loading state
+  if (btn) btn.disabled = true;
+  if (spinner) spinner.classList.add('loading');
+
   try {
     const res = await fetch(API + "/login", {
       method: "POST",
@@ -36,30 +54,31 @@ async function login() {
 
     if (res.ok) {
       alert("Login successful! Welcome " + data.user.name);
-      
-      // SHOW the shop and HIDE the login links
       document.getElementById('main-content').style.display = 'block';
       document.getElementById('auth-links').style.display = 'none';
-      
-      // Optional: Save login state so it stays visible if they refresh
       localStorage.setItem('isLoggedIn', 'true');
     } else {
       alert("Login failed: " + (data.message || "Invalid credentials"));
     }
   } catch (err) {
     alert("Could not connect to server.");
+  } finally {
+    // Hide loading state
+    if (btn) btn.disabled = false;
+    if (spinner) spinner.classList.remove('loading');
   }
 }
 
-// Add this at the very bottom of script.js to keep user logged in on refresh
+// Keep user logged in on refresh
 window.onload = function() {
     if (localStorage.getItem('isLoggedIn') === 'true') {
-        if(document.getElementById('main-content')) {
-            document.getElementById('main-content').style.display = 'block';
-            document.getElementById('auth-links').style.display = 'none';
-        }
+        const mainContent = document.getElementById('main-content');
+        const authLinks = document.getElementById('auth-links');
+        if (mainContent) mainContent.style.display = 'block';
+        if (authLinks) authLinks.style.display = 'none';
     }
 }
+
 function logout() {
     localStorage.removeItem('isLoggedIn');
     window.location.reload();
@@ -74,6 +93,7 @@ if (deleteBtn) {
     const response = await fetch(`${API}/delete-user/${email}`, { method: 'DELETE' });
     const data = await response.json();
     alert(data.message);
+    localStorage.removeItem('isLoggedIn'); // Clear login state after deletion
     window.location.reload();
   });
 }
