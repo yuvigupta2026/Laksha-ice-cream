@@ -81,6 +81,7 @@ window.onload = function() {
 
 function logout() {
     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userName'); // NEW: Clear name
     window.location.reload();
 }
 
