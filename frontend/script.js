@@ -1,4 +1,4 @@
-// ✅ Updated to your live Render URL
+// ✅ Your live Render URL
 const API = "https://laksha-ice-cream-1.onrender.com/api";
 
 // --- 1. SIGNUP LOGIC ---
@@ -13,16 +13,10 @@ async function signup() {
         password: document.getElementById('password').value
       })
     });
-
     const data = await res.json();
-    if (res.ok) {
-      alert("Success: " + data.message);
-    } else {
-      alert("Error: " + (data.error || data.message));
-    }
+    alert(res.ok ? "Success: " + data.message : "Error: " + (data.error || data.message));
   } catch (err) {
-    console.error("Signup failed:", err);
-    alert("Could not connect to the server.");
+    alert("Could not connect to server.");
   }
 }
 
@@ -37,18 +31,14 @@ async function login() {
         password: document.getElementById('password').value
       })
     });
-
     const data = await res.json();
-
     if (res.ok) {
       alert("Login successful!");
-      console.log("Welcome,", data.user.name);
     } else {
       alert("Login failed: " + (data.message || "Invalid credentials"));
     }
   } catch (err) {
-    console.error("Login failed:", err);
-    alert("Could not connect to the server.");
+    alert("Could not connect to server.");
   }
 }
 
@@ -58,43 +48,14 @@ if (deleteBtn) {
   deleteBtn.addEventListener('click', async () => {
     const email = prompt("Please enter your email to confirm deletion:");
     if (!email) return;
-
-    const response = await fetch(`${API}/delete-user/${email}`, {
-      method: 'DELETE'
-    });
-
+    const response = await fetch(`${API}/delete-user/${email}`, { method: 'DELETE' });
     const data = await response.json();
     alert(data.message);
     window.location.reload();
   });
 }
 
-// --- 4. LOCATION TOOL LOGIC ---
-function getLocation() {
-  const status = document.getElementById('location-text');
-
-  if (!navigator.geolocation) {
-    status.textContent = "Geolocation is not supported by your browser";
-  } else {
-    status.textContent = "Locating...";
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        status.textContent = `📍 Location Set: ${lat.toFixed(2)}, ${lon.toFixed(2)}`;
-        
-        // Saves location for checkout pages
-        localStorage.setItem('userLat', lat);
-        localStorage.setItem('userLon', lon);
-      },
-      () => {
-        status.textContent = "Unable to retrieve your location";
-      }
-    );
-  }
-}
-
-// --- NEW: MANUAL LOCATION LOGIC ---
+// --- 4. MANUAL LOCATION LOGIC ---
 function saveManualLocation() {
     const addressInput = document.getElementById('manual-location');
     const status = document.getElementById('location-text');
@@ -104,12 +65,35 @@ function saveManualLocation() {
         return;
     }
 
-    // Update the display
     status.textContent = `📍 Location Set: ${addressInput.value}`;
-    
-    // Save the text address to localStorage
     localStorage.setItem('userAddress', addressInput.value);
-    
     alert("Address saved for delivery!");
-    addressInput.value = ""; // Clear the box
+}
+
+// --- 5. AUTOMATIC GPS LOGIC ---
+function getLocation() {
+  const status = document.getElementById('location-text');
+
+  if (!navigator.geolocation) {
+    alert("Geolocation is not supported by your browser");
+    return;
+  }
+
+  status.textContent = "Locating... Please allow access.";
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      status.textContent = `📍 Location Set: ${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+      localStorage.setItem('userLat', lat);
+      localStorage.setItem('userLon', lon);
+      alert("GPS Location captured successfully!");
+    },
+    (error) => {
+      alert("GPS Error: " + error.message + ". Please try typing your address instead.");
+      status.textContent = "📍 Delivery Location: Not Set";
+    },
+    { enableHighAccuracy: true, timeout: 5000 }
+  );
 }
