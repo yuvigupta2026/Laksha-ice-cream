@@ -4,10 +4,44 @@
   <title>Laksha Ice Cream</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* Adding a style to make sure the links look like cards */
+    /* Style for the flavor cards */
     .menu a {
       text-decoration: none;
       color: inherit;
+    }
+
+    /* Style for the new Location Box */
+    .location-container {
+      background: #fff;
+      padding: 15px;
+      border-radius: 12px;
+      margin: 20px auto;
+      width: fit-content;
+      min-width: 280px;
+      color: #333;
+      text-align: center;
+      border: 2px solid #ffb347;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    #location-text {
+      font-weight: bold;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .loc-btn {
+      background: #ffb347;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .loc-btn:hover {
+      background: #f3a02e;
     }
   </style>
 </head>
@@ -15,6 +49,11 @@
 
 <h1>🍦 Laksha Ice Cream 🍦</h1>
 <p>Welcome to the sweetest ice cream shop!</p>
+
+<div class="location-container">
+    <span id="location-text">📍 Delivery Location: Not Set</span><br>
+    <button class="loc-btn" onclick="getLocation()">Detect My Location</button>
+</div>
 
 <div class="menu">
   <a href="chocolate.html">
@@ -34,7 +73,7 @@
   </a>
 </div>
 
-<button id="deleteBtn" style="background-color: red; color: white;">Delete My Account</button>
+<button id="deleteBtn" style="background-color: red; color: white; padding: 10px; border-radius: 5px; cursor: pointer;">Delete My Account</button>
 <br><br>
 <a href="login.html">Login</a> |
 <a href="signup.html">Signup</a>
