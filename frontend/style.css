@@ -1,74 +1,87 @@
+/* 1. Global Centering */
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  /* The pink background from your screenshot */
-  background: #ffdde1; 
-  margin: 0;
-  padding: 20px;
-  
-  /* Flexbox settings to center everything */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: #ffdde1; /* Pink background from your image */
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers everything horizontally */
+    min-height: 100vh;
 }
 
-/* Container for Location and Menu */
-.location-container, #main-content {
-  width: 100%;
-  max-width: 400px; /* Keeps the center box from getting too wide */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* 2. Container for the Location Box */
+.location-container {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    border: 2px solid #ffb347;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
 }
 
+/* 3. The Menu Cards */
 .menu {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap; /* Allows cards to wrap on small screens */
-  margin-top: 20px;
-  margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin: 20px 0;
 }
 
 .card {
-  background: white;
-  padding: 15px 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  font-weight: bold;
-  min-width: 80px;
+    background: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    font-weight: bold;
+    color: #333;
+    transition: 0.3s;
 }
 
-/* Styling for the Location Box from your screenshot */
-.location-container {
-  background: white;
-  padding: 20px;
-  border-radius: 15px;
-  border: 2px solid #ffb347;
-  margin-bottom: 20px;
+.card:hover {
+    transform: translateY(-5px);
 }
 
-input, button {
-  display: block;
-  margin: 10px auto;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+/* 4. Buttons and Inputs */
+input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: 80%;
 }
 
-button {
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-button:active {
-  transform: scale(0.95);
+.loc-btn {
+    background: #ffb347;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 5px;
 }
 
 #deleteBtn {
-  background-color: red;
-  color: white;
-  border: none;
-  font-weight: bold;
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+/* 5. Auth Links */
+#auth-links {
+    margin-top: 20px;
+}
+
+#auth-links a {
+    text-decoration: none;
+    color: #7a5c12;
+    font-weight: bold;
 }
