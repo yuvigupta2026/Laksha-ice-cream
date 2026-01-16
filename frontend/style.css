@@ -85,3 +85,28 @@ input {
     color: #7a5c12;
     font-weight: bold;
 }
+/* Loading Spinner Style */
+.spinner {
+    display: none; /* Hidden by default */
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Class to show spinner and dim button */
+.loading {
+    display: inline-block;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
