@@ -31,15 +31,38 @@ async function login() {
         password: document.getElementById('password').value
       })
     });
+
     const data = await res.json();
+
     if (res.ok) {
-      alert("Login successful!");
+      alert("Login successful! Welcome " + data.user.name);
+      
+      // SHOW the shop and HIDE the login links
+      document.getElementById('main-content').style.display = 'block';
+      document.getElementById('auth-links').style.display = 'none';
+      
+      // Optional: Save login state so it stays visible if they refresh
+      localStorage.setItem('isLoggedIn', 'true');
     } else {
       alert("Login failed: " + (data.message || "Invalid credentials"));
     }
   } catch (err) {
     alert("Could not connect to server.");
   }
+}
+
+// Add this at the very bottom of script.js to keep user logged in on refresh
+window.onload = function() {
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+        if(document.getElementById('main-content')) {
+            document.getElementById('main-content').style.display = 'block';
+            document.getElementById('auth-links').style.display = 'none';
+        }
+    }
+}
+function logout() {
+    localStorage.removeItem('isLoggedIn');
+    window.location.reload();
 }
 
 // --- 3. DELETE ACCOUNT LOGIC ---
