@@ -6,7 +6,6 @@ async function signup() {
   const btn = document.getElementById('signupBtn');
   const spinner = document.getElementById('spinner');
   
-  // Show loading state
   if (btn) btn.disabled = true;
   if (spinner) spinner.classList.add('loading');
 
@@ -25,18 +24,16 @@ async function signup() {
   } catch (err) {
     alert("Could not connect to server.");
   } finally {
-    // Hide loading state
     if (btn) btn.disabled = false;
     if (spinner) spinner.classList.remove('loading');
   }
 }
 
-// --- 2. LOGIN LOGIC WITH SPINNER ---
+// --- 2. LOGIN LOGIC WITH SPINNER AND NAME DISPLAY ---
 async function login() {
   const btn = document.getElementById('loginBtn');
   const spinner = document.getElementById('spinner');
   
-  // Show loading state
   if (btn) btn.disabled = true;
   if (spinner) spinner.classList.add('loading');
 
@@ -54,38 +51,51 @@ async function login() {
 
     if (res.ok) {
       alert("Login successful! Welcome " + data.user.name);
+      
+      // Save data to browser memory
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('userName', data.user.name); 
+
+      // Show the shop and name
+      document.getElementById('welcome-user').textContent = "Welcome, " + data.user.name + "! 🍦";
       document.getElementById('main-content').style.display = 'block';
       document.getElementById('auth-links').style.display = 'none';
-      localStorage.setItem('isLoggedIn', 'true');
     } else {
       alert("Login failed: " + (data.message || "Invalid credentials"));
     }
   } catch (err) {
     alert("Could not connect to server.");
   } finally {
-    // Hide loading state
     if (btn) btn.disabled = false;
     if (spinner) spinner.classList.remove('loading');
   }
 }
 
-// Keep user logged in on refresh
+// --- 3. AUTO-LOAD ON REFRESH ---
 window.onload = function() {
     if (localStorage.getItem('isLoggedIn') === 'true') {
         const mainContent = document.getElementById('main-content');
         const authLinks = document.getElementById('auth-links');
+        const welcomeText = document.getElementById('welcome-user');
+        const savedName = localStorage.getItem('userName');
+
         if (mainContent) mainContent.style.display = 'block';
         if (authLinks) authLinks.style.display = 'none';
+        
+        // Restore the welcome name
+        if (welcomeText && savedName) {
+            welcomeText.textContent = "Welcome, " + savedName + "! 🍦";
+        }
     }
 }
 
+// --- 4. LOGOUT & DELETE ---
 function logout() {
     localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('userName'); // NEW: Clear name
+    localStorage.removeItem('userName'); 
     window.location.reload();
 }
 
-// --- 3. DELETE ACCOUNT LOGIC ---
 const deleteBtn = document.getElementById('deleteBtn');
 if (deleteBtn) {
   deleteBtn.addEventListener('click', async () => {
@@ -94,12 +104,11 @@ if (deleteBtn) {
     const response = await fetch(`${API}/delete-user/${email}`, { method: 'DELETE' });
     const data = await response.json();
     alert(data.message);
-    localStorage.removeItem('isLoggedIn'); // Clear login state after deletion
-    window.location.reload();
+    logout(); // Uses the logout function above to clear storage and refresh
   });
 }
 
-// --- 4. MANUAL LOCATION LOGIC ---
+// --- 5. LOCATION LOGIC ---
 function saveManualLocation() {
     const addressInput = document.getElementById('manual-location');
     const status = document.getElementById('location-text');
@@ -114,17 +123,13 @@ function saveManualLocation() {
     alert("Address saved for delivery!");
 }
 
-// --- 5. AUTOMATIC GPS LOGIC ---
 function getLocation() {
   const status = document.getElementById('location-text');
-
   if (!navigator.geolocation) {
     alert("Geolocation is not supported by your browser");
     return;
   }
-
   status.textContent = "Locating... Please allow access.";
-
   navigator.geolocation.getCurrentPosition(
     (position) => {
       const lat = position.coords.latitude;
