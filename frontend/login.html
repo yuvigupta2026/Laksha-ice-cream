@@ -1,17 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Login</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Login - Laksha Ice Cream</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <h1>🍦 Login 🍦</h1>
+    
+    <div class="location-container">
+        <input type="email" id="email" placeholder="Enter Email">
+        <input type="password" id="password" placeholder="Enter Password">
+        <button class="loc-btn" onclick="login()">Login</button>
+        <p>Don't have an account? <a href="signup.html">Signup</a></p>
+    </div>
 
-<h2>Login</h2>
+    <a href="index.html">Back to Home</a>
 
-<input id="email" placeholder="Email">
-<input id="password" type="password" placeholder="Password">
-<button onclick="login()">Login</button>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
