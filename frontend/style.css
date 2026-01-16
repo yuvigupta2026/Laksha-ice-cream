@@ -1,23 +1,74 @@
 body {
-  font-family: Arial;
+  font-family: Arial, sans-serif;
   text-align: center;
-  background: #ffdde1;
+  /* The pink background from your screenshot */
+  background: #ffdde1; 
+  margin: 0;
+  padding: 20px;
+  
+  /* Flexbox settings to center everything */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Container for Location and Menu */
+.location-container, #main-content {
+  width: 100%;
+  max-width: 400px; /* Keeps the center box from getting too wide */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .menu {
   display: flex;
   justify-content: center;
   gap: 10px;
+  flex-wrap: wrap; /* Allows cards to wrap on small screens */
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .card {
   background: white;
-  padding: 20px;
+  padding: 15px 20px;
   border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  font-weight: bold;
+  min-width: 80px;
+}
+
+/* Styling for the Location Box from your screenshot */
+.location-container {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  border: 2px solid #ffb347;
+  margin-bottom: 20px;
 }
 
 input, button {
   display: block;
   margin: 10px auto;
   padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+#deleteBtn {
+  background-color: red;
+  color: white;
+  border: none;
+  font-weight: bold;
 }
