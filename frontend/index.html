@@ -1,27 +1,40 @@
-<h1>🍦 Laksha Ice Cream 🍦</h1>
-<p>Welcome to the sweetest ice cream shop!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Laksha Ice Cream</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-<div id="main-content" style="display: none;">
-    <div class="location-container">
-        <span id="location-text">📍 Delivery Location: Not Set</span><br>
-        <div style="margin: 10px 0;">
-            <input type="text" id="manual-location" placeholder="Enter your address here...">
-            <button class="loc-btn" onclick="saveManualLocation()">Save</button>
+    <h1>🍦 Laksha Ice Cream 🍦</h1>
+    <p>Welcome to the sweetest ice cream shop!</p>
+
+    <div id="main-content" style="display: none;">
+        <div class="location-container">
+            <span id="location-text">📍 Delivery Location: Not Set</span><br>
+            <div style="margin: 10px 0;">
+                <input type="text" id="manual-location" placeholder="Enter your address here...">
+                <button class="loc-btn" onclick="saveManualLocation()">Save</button>
+            </div>
+            <p>-- OR --</p>
+            <button class="loc-btn" onclick="getLocation()">Detect Automatically</button>
         </div>
-        <p>-- OR --</p>
-        <button class="loc-btn" onclick="getLocation()">Detect Automatically</button>
+
+        <div class="menu">
+            <a href="chocolate.html"><div class="card">Chocolate</div></a>
+            <a href="vanilla.html"><div class="card">Vanilla</div></a>
+            <a href="butterscotch.html"><div class="card">Butterscotch</div></a>
+            <a href="mango.html"><div class="card">Mango</div></a>
+        </div>
+        
+        <button id="deleteBtn">Delete My Account</button>
     </div>
 
-    <div class="menu">
-        <a href="chocolate.html"><div class="card">Chocolate</div></a>
-        <a href="vanilla.html"><div class="card">Vanilla</div></a>
-        <a href="butterscotch.html"><div class="card">Butterscotch</div></a>
-        <a href="mango.html"><div class="card">Mango</div></a>
+    <div id="auth-links">
+        <a href="login.html">Login</a> | <a href="signup.html">Signup</a>
     </div>
-    
-    <button id="deleteBtn" style="background-color: red; color: white;">Delete My Account</button>
-</div>
 
-<div id="auth-links">
-    <a href="login.html">Login</a> | <a href="signup.html">Signup</a>
-</div>
+    <script src="script.js"></script>
+</body>
+</html>
