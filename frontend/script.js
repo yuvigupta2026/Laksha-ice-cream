@@ -93,3 +93,23 @@ function getLocation() {
     );
   }
 }
+
+// --- NEW: MANUAL LOCATION LOGIC ---
+function saveManualLocation() {
+    const addressInput = document.getElementById('manual-location');
+    const status = document.getElementById('location-text');
+
+    if (addressInput.value.trim() === "") {
+        alert("Please type an address first!");
+        return;
+    }
+
+    // Update the display
+    status.textContent = `📍 Location Set: ${addressInput.value}`;
+    
+    // Save the text address to localStorage
+    localStorage.setItem('userAddress', addressInput.value);
+    
+    alert("Address saved for delivery!");
+    addressInput.value = ""; // Clear the box
+}
