@@ -11,6 +11,8 @@
     <p>Welcome to the sweetest ice cream shop!</p>
 
     <div id="main-content" style="display: none;">
+        <h2 id="welcome-user" style="color: #7a5c12; margin-bottom: 20px;"></h2>
+
         <div class="location-container">
             <span id="location-text">📍 Delivery Location: Not Set</span><br>
             <div style="margin: 10px 0;">
@@ -28,7 +30,10 @@
             <a href="mango.html"><div class="card">Mango</div></a>
         </div>
         
-        <button id="deleteBtn">Delete My Account</button>
+        <div style="margin-top: 30px;">
+            <button id="deleteBtn">Delete My Account</button>
+            <button onclick="logout()" style="background-color: #666; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; margin-left: 10px;">Logout</button>
+        </div>
     </div>
 
     <div id="auth-links">
