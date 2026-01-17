@@ -77,13 +77,14 @@ window.onload = function() {
         const mainContent = document.getElementById('main-content');
         const authLinks = document.getElementById('auth-links');
         const welcomeText = document.getElementById('welcome-user');
-        const savedName = localStorage.getItem('userName');
+        
+        // Use the saved name, or just "Guest" if it's missing
+        const savedName = localStorage.getItem('userName') || "Guest";
 
         if (mainContent) mainContent.style.display = 'block';
         if (authLinks) authLinks.style.display = 'none';
         
-        // Restore the welcome name
-        if (welcomeText && savedName) {
+        if (welcomeText) {
             welcomeText.textContent = "Welcome, " + savedName + "! 🍦";
         }
     }
