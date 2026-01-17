@@ -1,3 +1,17 @@
+/* --- 1. VISIBILITY LOGIC (Crucial for Hiding Attributes) --- */
+#main-content {
+    display: none; /* Everything inside this is hidden until login */
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+#auth-links {
+    display: block; /* Visible by default */
+    width: 100%;
+}
+
+/* --- 2. GLOBAL STYLES --- */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
@@ -7,8 +21,8 @@ body {
     align-items: center;
     min-height: 100vh;
 
-    /* --- SDPC BACKGROUND IMAGE --- */
-    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+    /* SDPC BACKGROUND IMAGE with dark overlay for readability */
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
                       url('https://images.unsplash.com/photo-1501443762994-82bd5dace89a?q=80&w=2070');
     background-size: cover;
     background-position: center;
@@ -16,34 +30,37 @@ body {
     background-attachment: fixed;
 }
 
-/* Make the Main Title pop */
+/* --- 3. TEXT STYLES --- */
 h1 {
     color: white;
     font-size: 3rem;
     text-shadow: 2px 4px 10px rgba(0,0,0,0.5);
     margin-bottom: 5px;
+    text-align: center;
 }
 
-p {
+p, #welcome-user {
     color: white;
     font-weight: bold;
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+    text-shadow: 1px 1px 8px rgba(0,0,0,0.7);
+    text-align: center;
 }
 
-/* Semi-transparent "Glass" effect for the containers */
+/* --- 4. CONTAINERS (Glassmorphism Effect) --- */
 .location-container, .auth-box {
-    background: rgba(255, 255, 255, 0.9); /* Slightly see-through white */
-    backdrop-filter: blur(5px); /* Blurs the background behind the box */
+    background: rgba(255, 255, 255, 0.95); /* Nearly solid white for better contrast */
+    backdrop-filter: blur(10px);
     padding: 25px;
     border-radius: 15px;
     border: 2px solid #ffb347;
     margin: 20px auto;
     width: 90%;
     max-width: 450px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
     text-align: center;
 }
 
+/* --- 5. MENU & CARDS --- */
 .menu {
     display: flex;
     justify-content: center;
@@ -59,8 +76,9 @@ p {
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     font-weight: bold;
     color: #333;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background 0.3s;
     cursor: pointer;
+    text-align: center;
 }
 
 .card:hover {
@@ -68,7 +86,7 @@ p {
     background: #fff9f0;
 }
 
-/* Buttons */
+/* --- 6. BUTTONS & INPUTS --- */
 .loc-btn {
     background: #ffb347;
     color: white;
@@ -78,14 +96,23 @@ p {
     font-weight: bold;
     cursor: pointer;
     transition: 0.2s;
+    margin: 5px;
 }
 
 .loc-btn:hover {
     background: #e69a2e;
 }
 
+input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 80%;
+    margin-bottom: 10px;
+}
+
 #deleteBtn {
-    background: rgba(255, 0, 0, 0.8);
+    background: rgba(220, 20, 60, 0.9);
     color: white;
     border: none;
     padding: 10px 20px;
