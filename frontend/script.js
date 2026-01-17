@@ -78,14 +78,14 @@ window.onload = function() {
         const authLinks = document.getElementById('auth-links');
         const welcomeText = document.getElementById('welcome-user');
         
-        // Use the saved name, or just "Guest" if it's missing
+        // FIX: Provide a default name if 'userName' is null
         const savedName = localStorage.getItem('userName') || "Guest";
 
         if (mainContent) mainContent.style.display = 'block';
         if (authLinks) authLinks.style.display = 'none';
         
         if (welcomeText) {
-            welcomeText.textContent = "Welcome, " + savedName + "! 🍦";
+            welcomeText.textContent = `Welcome, ${savedName}! 🍦`;
         }
     }
 }
