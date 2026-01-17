@@ -2,21 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Laksha Ice Cream</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDPC Ice Cream Parlour</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h1>🍦 Laksha Ice Cream 🍦</h1>
-    <p>Premium Scoops & Sweet Memories</p>
+    <div id="auth-links">
+        <div class="location-container" style="margin-top: 50px;">
+            <p style="color: #333; text-shadow: none;">Please sign in to view the menu</p>
+            <a href="login.html" class="loc-btn" style="text-decoration: none; display: inline-block;">Login</a> 
+            <a href="signup.html" class="loc-btn" style="text-decoration: none; display: inline-block; background: #666;">Signup</a>
+        </div>
+    </div>
 
     <div id="main-content" style="display: none;">
-        <h2 id="welcome-user" style="color: white; text-shadow: 2px 2px 5px black;"></h2>
+        
+        <h1>🍦 SDPC Ice Cream Parlour 🍦</h1>
+        <p>Premium Scoops & Sweet Memories</p>
+
+        <h2 id="welcome-user"></h2>
 
         <div class="location-container">
-            <span id="location-text" style="font-weight: bold; color: #444;">📍 Delivery Location: Not Set</span><br>
+            <span id="location-text">📍 Delivery Location: Not Set</span><br>
             <div style="margin: 15px 0;">
-                <input type="text" id="manual-location" placeholder="Enter delivery address..." style="padding: 10px; width: 70%; border-radius: 5px; border: 1px solid #ccc;">
+                <input type="text" id="manual-location" placeholder="Enter delivery address...">
                 <button class="loc-btn" onclick="saveManualLocation()">Save</button>
             </div>
             <p style="color: #666; text-shadow: none;">-- OR --</p>
@@ -30,12 +40,10 @@
             <a href="mango.html" style="text-decoration: none;"><div class="card">Mango</div></a>
         </div>
         
-        <button id="deleteBtn">Delete Account</button>
-    </div>
-
-    <div id="auth-links" style="background: rgba(255,255,255,0.8); padding: 10px 20px; border-radius: 20px;">
-        <a href="login.html" style="text-decoration: none; color: #d2691e; font-weight: bold;">Login</a> | 
-        <a href="signup.html" style="text-decoration: none; color: #d2691e; font-weight: bold;">Signup</a>
+        <div style="margin-top: 30px;">
+            <button onclick="logout()" class="loc-btn" style="background: #444;">Logout</button>
+            <button id="deleteBtn" style="background: rgba(255, 0, 0, 0.7); color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer;">Delete Account</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
