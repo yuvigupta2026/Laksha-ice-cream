@@ -1,29 +1,49 @@
-/* 1. Global Centering */
 body {
-    font-family: Arial, sans-serif;
-    background: #ffdde1; /* Pink background from your image */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centers everything horizontally */
+    align-items: center;
     min-height: 100vh;
+
+    /* --- SDPC BACKGROUND IMAGE --- */
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                      url('https://images.unsplash.com/photo-1501443762994-82bd5dace89a?q=80&w=2070');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
-/* 2. Container for the Location Box */
-.location-container {
-    background: white;
+/* Make the Main Title pop */
+h1 {
+    color: white;
+    font-size: 3rem;
+    text-shadow: 2px 4px 10px rgba(0,0,0,0.5);
+    margin-bottom: 5px;
+}
+
+p {
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+}
+
+/* Semi-transparent "Glass" effect for the containers */
+.location-container, .auth-box {
+    background: rgba(255, 255, 255, 0.9); /* Slightly see-through white */
+    backdrop-filter: blur(5px); /* Blurs the background behind the box */
     padding: 25px;
     border-radius: 15px;
     border: 2px solid #ffb347;
     margin: 20px auto;
     width: 90%;
-    max-width: 400px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    max-width: 450px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
     text-align: center;
 }
 
-/* 3. The Menu Cards */
 .menu {
     display: flex;
     justify-content: center;
@@ -34,79 +54,42 @@ body {
 
 .card {
     background: white;
-    padding: 15px 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     font-weight: bold;
     color: #333;
-    transition: 0.3s;
+    transition: transform 0.3s ease;
+    cursor: pointer;
 }
 
 .card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
+    background: #fff9f0;
 }
 
-/* 4. Buttons and Inputs */
-input {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    width: 80%;
-}
-
+/* Buttons */
 .loc-btn {
     background: #ffb347;
+    color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 25px;
     border-radius: 8px;
     font-weight: bold;
     cursor: pointer;
-    margin: 5px;
+    transition: 0.2s;
+}
+
+.loc-btn:hover {
+    background: #e69a2e;
 }
 
 #deleteBtn {
-    background-color: red;
+    background: rgba(255, 0, 0, 0.8);
     color: white;
     border: none;
-    padding: 12px 20px;
+    padding: 10px 20px;
     border-radius: 8px;
-    font-weight: bold;
     cursor: pointer;
     margin-top: 20px;
-}
-
-/* 5. Auth Links */
-#auth-links {
-    margin-top: 20px;
-}
-
-#auth-links a {
-    text-decoration: none;
-    color: #7a5c12;
-    font-weight: bold;
-}
-/* Loading Spinner Style */
-.spinner {
-    display: none; /* Hidden by default */
-    width: 20px;
-    height: 20px;
-    border: 3px solid rgba(255,255,255,0.3);
-    border-radius: 50%;
-    border-top-color: #fff;
-    animation: spin 1s ease-in-out infinite;
-    margin-left: 10px;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-/* Class to show spinner and dim button */
-.loading {
-    display: inline-block;
-}
-
-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
 }
